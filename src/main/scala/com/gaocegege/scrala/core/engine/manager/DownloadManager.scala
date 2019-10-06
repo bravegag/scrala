@@ -12,16 +12,14 @@ import java.net.URI
  * @author gaoce
  */
 abstract class DownloadManager(val engine: ActorRef) extends Actor {
-
   val logger = Logger(LoggerFactory getLogger ("Downloadmanager"))
 
   /** work down count */
-  var counter = 0
+  var pendingJobsCount = 0
 
   /** worker actor */
   var workers: immutable.List[ActorRef] = immutable List[ActorRef]()
 
   /** call back info map */
   var callBackMap: immutable.Map[URI, (HttpResponse) => Unit] = immutable Map[URI, (HttpResponse) => Unit]()
-
 }

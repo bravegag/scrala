@@ -11,7 +11,6 @@ import com.gaocegege.scrala.core.common.response.impl.HttpResponse
 import org.apache.http.util.EntityUtils
 
 class DefaultDownloadManager(engine: ActorRef, val threadCount: Int = 4) extends DownloadManager(engine) {
-
   for (i <- 1 to threadCount) {
     workers = (context actorOf (Props[HttpDownloader], "worker-" + (i toString))) :: workers
   }
@@ -27,15 +26,15 @@ class DefaultDownloadManager(engine: ActorRef, val threadCount: Int = 4) extends
       // push callback function to map
       callBackMap += (((request request) getURI) -> request.callback)
 
-      // if get a new job to do,
-      counter = counter - 1
+      // whenever we get a new job
+      pendingJobsCount = pendingJobsCount + 1
 
       // tell the worker to do
       workers(index) tell ((request, index), self)
     }
     case (Constant.workDownMessage, uri: URI, response: HttpResponse) => {
-      // if a job has done,
-      counter = counter + 1
+      // whenever a job is completed
+      pendingJobsCount = pendingJobsCount - 1
 
       // do the callback function
       if (!(response isSuccess)) {
@@ -51,8 +50,8 @@ class DefaultDownloadManager(engine: ActorRef, val threadCount: Int = 4) extends
         }
       }
 
-      // all jobs have been done
-      if (counter == 0) {
+      // all jobs have been completed
+      if (pendingJobsCount <= 0) {
         engine tell (Constant.workDownMessage, self)
       }
     }

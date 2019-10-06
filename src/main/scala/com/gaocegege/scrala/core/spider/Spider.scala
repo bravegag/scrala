@@ -3,7 +3,7 @@ package com.gaocegege.scrala.core.spider
 import com.gaocegege.scrala.core.common.response.impl.HttpResponse
 import com.typesafe.scalalogging.Logger
 import org.slf4j.LoggerFactory
-import com.gaocegege.scrala.core.middleware.filter.impl.DefaultFilter
+import com.gaocegege.scrala.core.middleware.filter.impl.AcceptAllFilter
 import com.gaocegege.scrala.core.middleware.filter.Filter
 
 /**
@@ -13,7 +13,7 @@ trait Spider {
   /** the start url */
   def startUrl: List[String]
   /** middleware-filter */
-  def filter: Filter = new DefaultFilter
+  def filter: Filter = new AcceptAllFilter
   /** delay */
   def delay: Int = 0
   /** worker actor number */

@@ -3,8 +3,6 @@ package com.gaocegege.scrala.core.downloader.impl
 import com.gaocegege.scrala.core.downloader.Downloader
 import com.gaocegege.scrala.core.downloader.httpclient.DefaultHttpClient
 import com.gaocegege.scrala.core.common.response.Response
-import org.apache.http.util.EntityUtils
-import org.apache.http.client.ClientProtocolException
 import akka.actor.Actor
 import com.gaocegege.scrala.core.common.request.impl.HttpRequest
 import com.gaocegege.scrala.core.common.response.impl.HttpResponse
@@ -16,7 +14,6 @@ import scala.util.{ Try, Success, Failure }
  * @author gaoce
  */
 class HttpDownloader extends DefaultHttpClient with Actor with Downloader {
-
   def receive = {
     case (request: HttpRequest, index: Int) => {
       logger info ("Worker " + index + " working on " + ((request request) getURI))

@@ -2,7 +2,6 @@ package com.gaocegege.scrala.core.engine
 
 import com.gaocegege.scrala.core.spider.Spider
 import com.gaocegege.scrala.core.scheduler.Scheduler
-import com.gaocegege.scrala.core.downloader.Downloader
 import com.typesafe.scalalogging.Logger
 import org.slf4j.LoggerFactory
 import com.gaocegege.scrala.core.common.request.impl.HttpRequest
@@ -10,10 +9,7 @@ import org.apache.http.client.methods.HttpGet
 import com.gaocegege.scrala.core.common.response.impl.HttpResponse
 import akka.actor.{ Props, ActorRef, Actor }
 import com.gaocegege.scrala.core.common.util.Constant
-import com.gaocegege.scrala.core.engine.manager.DownloadManager
-import akka.actor.PoisonPill
 import com.gaocegege.scrala.core.engine.manager.impl.DefaultDownloadManager
-import com.gaocegege.scrala.core.engine.manager.DownloadManager
 
 /**
  * Engine, responsable for ?
